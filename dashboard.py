@@ -51,7 +51,7 @@ if predict_btn:
     #'steps' : [{'range': [0, round(resultat.json()['probability'],2)], 'color': "green"}, {'range': [round(resultat.json()['probability'],2), 1], 'color': "red"}]}))
  
  # plot with seaborn
- limits = [0,1]
+ limits = [0, 1]
  palette = sns.color_palette("coolwarm_r", len(limits))
  fig, ax = plt.subplots()
  ax.set_aspect('equal')
