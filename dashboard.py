@@ -56,7 +56,7 @@ if predict_btn:
   fig, ax = plt.subplots()
   ax.set_aspect('equal')
   ax.set_yticks([1])
-  ax.set_yticklabels(["Probabilité]) 
+  ax.set_yticklabels(['Probabilité du résultat']) 
   # Draw the value we're measuring
   ax.barh([1], round(resultat.json()['probability'],2), color='black', height=5)
   # Plot
