@@ -39,15 +39,10 @@ id_client = st.sidebar.selectbox('Quel user id chosir?', list(map(int, X.index.t
 
     
 #Faire la prédiction et donner sa probabilité
-predict_btn = st.sidebar.button('Donner la prédiction')
-if predict_btn:
-    resultat= requests.post(url='https://myappy.herokuapp.com/predict',json= {'user_id': id_client})
-    
-if uploaded_file_test:
-    predict_btn = st.button('Prédire après sélection du user id ')
+  predict_btn = st.sidebar.button('Prédire après sélection du user id ')
     if predict_btn:
         if uploaded_file_test:
-            resultat= requests.post(url='http://127.0.0.1:8000/predict',json= {'user_id': id_client})
+            resultat= requests.post(url='https://myappy.herokuapp.com/predict',json= {'user_id': id_client})
             st.write(resultat.json())   
             #st.write(resultat.json()) 
             st.write( 'Résultat de la prédiction:', int(resultat.json()['prediction']))
