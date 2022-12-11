@@ -7,8 +7,10 @@ import streamlit.components.v1 as components
 #import dill 
 import numpy as np
 #import plotly
-import plotly.graph_objects as pgo
+#import plotly.graph_objects as pgo
 #import shap
+import matplotlib
+import seaborn as sns
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # cd C:/Users/marat/Downloads/Py-DS-ML-Bootcamp-master/OCR/P7/dashboard/
@@ -45,10 +47,20 @@ if predict_btn:
   #st.write(resultat.json())   
   st.write( 'Résultat de la prédiction:', int(resultat.json()['prediction']))
   # Visualiser la probabilité du résultat sous forme de jauge
-  fig = pgo.Figure(pgo.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
-    'steps' : [{'range': [0, round(resultat.json()['probability'],2)], 'color': "green"}, {'range': [round(resultat.json()['probability'],2), 1], 'color': "red"}]}))
-  # Plot
-  st.plotly_chart(fig, use_container_width=True)
+  #fig = pgo.Figure(pgo.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
+    #'steps' : [{'range': [0, round(resultat.json()['probability'],2)], 'color': "green"}, {'range': [round(resultat.json()['probability'],2), 1], 'color': "red"}]}))
+ 
+ # plot with seaborn
+ limits = [0,1]
+ palette = sns.color_palette("coolwarm_r", len(limits))
+ fig, ax = plt.subplots()
+ ax.set_aspect('equal')
+ ax.set_yticks([1])
+ ax.set_yticklabels(["Probabilité]) 
+ # Draw the value we're measuring
+ ax.barh([1], round(resultat.json()['probability'],2), color='black', height=5)
+ # Plot
+ st.plotly_chart(fig, use_container_width=True)
      
     
 
