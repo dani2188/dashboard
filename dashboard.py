@@ -6,9 +6,9 @@ import streamlit.components.v1 as components
 #import pickle
 #import dill 
 import numpy as np
-import plotly
-import plotly.graph_objects as go
-import shap
+#import plotly
+#import plotly.graph_objects as go
+#import shap
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # cd C:/Users/marat/Downloads/Py-DS-ML-Bootcamp-master/OCR/P7/dashboard/
