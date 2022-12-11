@@ -1,12 +1,11 @@
 import streamlit as st
 import requests
 import pandas as pd
-import lime 
-from lime import lime_tabular
 import shap
 import streamlit.components.v1 as components
 import joblib
 import pickle
+import dill as pickle
 import numpy as np
 import plotly
 import plotly.graph_objects as go
@@ -64,9 +63,9 @@ if uploaded_file_test:
     if predict_btn_res:
             #data_in = X.loc[[id_client]]
             # explain the model's predictions using SHAP         
-            explainer = shap.TreeExplainer(model)
+            explainer = pickle.load('explainer.pkl')
              #explain the model's predictions using SHAP values
-            shap_values = explainer.shap_values(X)
+            shap_values = pickle.load('shap_values.pkl')    
             
             # visualize the prediction's explanation:
             st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1][0,:], X.loc[[id_client]]), 200)
