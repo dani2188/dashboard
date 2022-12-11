@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import streamlit.components.v1 as components
-import joblib
+#import joblib
 import pickle
 import dill as pickle
 import numpy as np
@@ -11,12 +11,13 @@ import plotly.graph_objects as go
 import shap
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
-#streamlit run C:/Users/marat/Downloads/Py-DS-ML-Bootcamp-master/OCR/P7/dashboard/dashboard.py
+# cd C:/Users/marat/Downloads/Py-DS-ML-Bootcamp-master/OCR/P7/dashboard/
+#streamlit run dashboard.py
 
  
 # loading the trained model
-pickle_in = open('Downloads/Py-DS-ML-Bootcamp-master/OCR/P7/dashboard/lgbm.pkl', 'rb') # quel est le dossier courant?
-model = pickle.load(pickle_in)
+#pickle_in = open('lgbm.pkl', 'rb') # quel est le dossier courant?
+#model = pickle.load(pickle_in)
 
 
 
