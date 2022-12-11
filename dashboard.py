@@ -6,7 +6,7 @@ import streamlit.components.v1 as components
 #import pickle
 #import dill 
 import numpy as np
-#import plotly
+import plotly
 #import plotly.graph_objects as go
 #import shap
 st.set_option('deprecation.showPyplotGlobalUse', False)
