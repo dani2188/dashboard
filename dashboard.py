@@ -42,10 +42,10 @@ id_client = st.sidebar.selectbox('Séléctionner un ID client', list(map(int, X.
 predict_btn = st.sidebar.button('Prédire')
 if predict_btn:
   resultat= requests.post(url='https://myappy.herokuapp.com/predict',json= {'user_id': id_client})
-  st.write(resultat.json())   
+  #st.write(resultat.json())   
   st.write( 'Résultat de la prédiction:', int(resultat.json()['prediction']))
   # Visualiser la probabilité du résultat sous forme de jauge
-  fig = go.Figure(go.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
+  fig = plotly.graph_objects .Figure(plotly.graph_objects .Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
     'steps' : [{'range': [0, round(resultat.json()['probability'],2)], 'color': "green"}, {'range': [round(resultat.json()['probability'],2), 1], 'color': "red"}]}))
   # Plot
   st.plotly_chart(fig, use_container_width=True)
