@@ -40,17 +40,16 @@ id_client = st.sidebar.selectbox('Séléctionner un ID client', list(map(int, X.
     
 #Faire la prédiction et donner sa probabilité
 predict_btn = st.sidebar.button('Prédire')
-    if predict_btn:
-            resultat= requests.post(url='https://myappy.herokuapp.com/predict',json= {'user_id': id_client})
-            st.write(resultat.json())   
-            #st.write(resultat.json()) 
-            st.write( 'Résultat de la prédiction:', int(resultat.json()['prediction']))
-            # Visualiser la probabilité du résultat sous forme de jauge
-            fig = go.Figure(go.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
+if predict_btn:
+  resultat= requests.post(url='https://myappy.herokuapp.com/predict',json= {'user_id': id_client})
+  st.write(resultat.json())   
+  #st.write(resultat.json()) 
+  st.write( 'Résultat de la prédiction:', int(resultat.json()['prediction']))
+  # Visualiser la probabilité du résultat sous forme de jauge
+  fig = go.Figure(go.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
     'steps' : [{'range': [0, round(resultat.json()['probability'],2)], 'color': "green"}, {'range': [round(resultat.json()['probability'],2), 1], 'color': "red"}]}))
-    
-            # Plot
-            st.plotly_chart(fig, use_container_width=True)
+  # Plot
+  st.plotly_chart(fig, use_container_width=True)
      
     
 
@@ -61,19 +60,17 @@ def st_shap(plot, height=None):
     
 #Interprétabilité des résultats avec SHAP:   
 predict_btn_res = st.sidebar.button("Expliquer les résultats")
-    if predict_btn_res:
-            #data_in = X.loc[[id_client]]
-            # explain the model's predictions using SHAP         
-            explainer = dill.load('explainer.pkl')
-             #explain the model's predictions using SHAP values
-            shap_values = dill.load('shap_values.pkl')    
-            
-            # visualize the prediction's explanation:
-            st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1][0,:], X.loc[[id_client]]), 200)
-            # ALL prédictions
-            st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], X),400)
-            
-            st.pyplot(shap.summary_plot(shap_values, X))
+if predict_btn_res:
+  #data_in = X.loc[[id_client]]
+  # explain the model's predictions using SHAP         
+  explainer = dill.load('explainer.pkl')
+  #explain the model's predictions using SHAP values
+  shap_values = dill.load('shap_values.pkl')    
+  # visualize the prediction's explanation:
+  st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1][0,:], X.loc[[id_client]]), 200)
+  # ALL prédictions
+  st_shap(shap.force_plot(explainer.expected_value[1], shap_values[1], X),400)
+  st.pyplot(shap.summary_plot(shap_values, X))
             
             
             
