@@ -10,7 +10,7 @@ import numpy as np
 #import plotly.graph_objects as pgo
 #import shap
 #import matplotlib.pyplot as plt
-import seaborn as sns
+#import seaborn as sns
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # cd C:/Users/marat/Downloads/Py-DS-ML-Bootcamp-master/OCR/P7/dashboard/
