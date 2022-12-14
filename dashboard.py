@@ -54,6 +54,10 @@ def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
     
+    
+ 
+    
+    
 #Interprétabilité des résultats avec SHAP:   
 predict_btn_res = st.sidebar.button("Analyse de la prédiction")
 if predict_btn_res:
