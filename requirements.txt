@@ -7,4 +7,4 @@ lightgbm==3.3.3
 gunicorn
 uvicorn
 fastapi
-dill
+dill==0.3.6
