@@ -11,6 +11,7 @@ import plotly.graph_objects as pgo
 import plotly.express as px
 import shap
 import dill
+import matplotlib
 #import matplotlib.pyplot as plt
 #import seaborn as sns
 st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -42,7 +43,7 @@ if predict_btn:
   #st.write(resultat.json())   
   st.write( 'Résultat de la prédiction:', int(resultat.json()['prediction']))
   # Visualiser la probabilité du résultat sous forme de jauge
-  fig = pgo.Figure(pgo.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 1], 'y': [0, 1]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
+  fig = pgo.Figure(pgo.Indicator(mode = "gauge+number",value = round(resultat.json()['probability'],2), domain = {'x': [0, 0.5], 'y': [0, 0.5]}, title = {'text':    "Probabilité de la prédiction"},  gauge = {'axis': {'range': [0, 1]}, 
    'steps' : [{'range': [0, round(resultat.json()['probability'],2)], 'color': "green"}, {'range': [round(resultat.json()['probability'],2), 1], 'color': "red"}]}))
   st.plotly_chart(fig, use_container_width=True)
    
@@ -53,11 +54,9 @@ if predict_btn:
 def st_shap(plot, height=None):
     shap_html = f"<head>{shap.getjs()}</head><body>{plot.html()}</body>"
     components.html(shap_html, height=height)
-    
-    
- 
-    
-    
+
+
+
 #Interprétabilité des résultats avec SHAP:   
 predict_btn_res = st.sidebar.button("Analyse de la prédiction")
 if predict_btn_res:
@@ -75,12 +74,17 @@ if predict_btn_res:
   shap_values = dill.load(shap_values_file)
   shap_values_file.close()   
 
-  # visualize the prediction's explanation:
+  # visualize the prediction's explanation for one sample:
+  st.write('Interprétabilité relative de la prédiction')
   st_shap(shap.force_plot(explainer.expected_value, shap_values[1][0,:], X.loc[[id_client]]), 200)
-  # ALL prédictions
+  #st.pyplot(shap.force_plot(explainer.expected_value, shap_values[1][0,:], X.loc[[id_client]],matplotlib=True))
+  # ALL prédictions ( Visualize many predictions)
+  st.write('Interprétabilité relative de toutes les prédictions')
   st_shap(shap.force_plot(explainer.expected_value, shap_values[1], X),400)
+  #st.pyplot(shap.force_plot(explainer.expected_value, shap_values[1], X))
+  # Features importance globale (SHAP summary plot)
+  st.write('Interprétabilité Globale')
   st.pyplot(shap.summary_plot(shap_values, X))
-            
             
   
 # Distribition des top features importance:
