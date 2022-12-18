@@ -75,11 +75,11 @@ if predict_btn_res:
   shap_values_file.close()   
 
   # visualize the prediction's explanation for one sample:
-  st.write('Interprétabilité relative de la prédiction')
+  st.write('Interprétabilité locale de la prédiction')
   st_shap(shap.force_plot(explainer.expected_value, shap_values[1][0,:], X.loc[[id_client]]), 200)
   #st.pyplot(shap.force_plot(explainer.expected_value, shap_values[1][0,:], X.loc[[id_client]],matplotlib=True))
   # ALL prédictions ( Visualize many predictions)
-  st.write('Interprétabilité relative de toutes les prédictions')
+  st.write('Interprétabilité locale de toutes les prédictions')
   st_shap(shap.force_plot(explainer.expected_value, shap_values[1], X),400)
   #st.pyplot(shap.force_plot(explainer.expected_value, shap_values[1], X))
   # Features importance globale (SHAP summary plot)
